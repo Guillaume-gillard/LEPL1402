@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db2521ab-92e1-4e13-8938-23865126a8a1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../IntroductionExercises/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../IntroductionExercises/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../KNN/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/basics/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/basics/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" afterDir="false" />
-    </list>
+    <list default="true" id="db2521ab-92e1-4e13-8938-23865126a8a1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +32,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -52,7 +45,7 @@
       <option name="presentableId" value="Default" />
       <updated>1698835216338</updated>
       <workItem from="1698835217340" duration="21000" />
-      <workItem from="1699093617621" duration="467000" />
+      <workItem from="1699093617621" duration="775000" />
     </task>
     <servers />
   </component>
