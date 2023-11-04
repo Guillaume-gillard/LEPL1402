@@ -1,2 +1,5 @@
+# Ignore IntelliJ IDEA files
+.idea/
+
+# Ignore XML files
 *.xml
-*.idea 
