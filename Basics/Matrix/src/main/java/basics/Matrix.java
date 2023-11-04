@@ -14,7 +14,11 @@ public class Matrix {
      *  @return The matrix represented by the String
      */
     public static int[][] buildFrom(String s) {
-         return null;
+        int row = 0;
+        int column = 0;
+        for (int i = 0; i < s.length(); i++){
+            if (char ==  )
+        }
     }
 
 
@@ -25,7 +29,13 @@ public class Matrix {
      * @return The sum of the element in matrix
      */
     public static int sum(int[][] matrix) {
-         return 0;
+        int sum = 0;
+        for (int i = 0; i < matrix.length; i++){
+            for (int j = 0; j < matrix[0].length; j++){
+                sum += matrix[i][j];
+            }
+        }
+        return sum;
     }
 
     /**

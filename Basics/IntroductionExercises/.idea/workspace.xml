@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb97aea5-6a37-4899-a31c-65664c6ee0c8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/basics/IntroductionExercises.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/basics/IntroductionExercises.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../KNN/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" afterDir="false" />
@@ -52,11 +47,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/gilla/OneDrive - UCL/Bac 2/Q3/Informatique 2/LEPL1402/Basics/IntroductionExercises",
+    "last_opened_file_path": "C:/Users/gilla/OneDrive - UCL/Bac 2/Q3/Informatique 2/LEPL1402/Basics/Matrix",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "discord-application",
     "vue.rearranger.settings.migration": "true"
   }
@@ -73,7 +69,7 @@
       <workItem from="1699083844285" duration="398000" />
       <workItem from="1699084259338" duration="461000" />
       <workItem from="1699085627738" duration="3486000" />
-      <workItem from="1699089136610" duration="3321000" />
+      <workItem from="1699089136610" duration="3634000" />
     </task>
     <servers />
   </component>

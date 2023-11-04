@@ -1,4 +1,4 @@
-
+package basics;
 
 /**
  * A class that represents a game of Four in a Row.
@@ -36,7 +36,9 @@ public class FourInARow {
      * @throws IllegalArgumentException if j is not a valid column index or if the column is full or if the player is not X or O
      */
     public void play(int j, char player) {
-         // add your own code here
+         if (j >= 7 || player != 'X' || player != 'O' || iscolomnfull[i] == false){
+             throw IllegalArgumentException;
+         }
     }
 
 

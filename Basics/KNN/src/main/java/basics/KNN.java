@@ -139,7 +139,7 @@ public class KNN {
     public static double euclideanDistance(double[] a, double[] b) {
         double dist = 0;
         for (int i = 0; i < a.length; i++) {
-            dist += Math.pow(a[i] - b[i], 2);
+            dist += Math.pow(a[i] - b[i], 2) ;
         }
         return Math.sqrt(dist);
     }
