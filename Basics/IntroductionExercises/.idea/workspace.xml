@@ -4,15 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb97aea5-6a37-4899-a31c-65664c6ee0c8" name="Changes" comment="" />
+    <list default="true" id="bb97aea5-6a37-4899-a31c-65664c6ee0c8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/basics/IntroductionExercises.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/basics/IntroductionExercises.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../KNN/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Guillaume-gillard"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="1446db25-8c6c-4f50-aeba-7b5e6916be19" />
+        <option name="url" value="https://github.com/Guillaume-gillard/LEPL1402.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2XZUmDRnKnZ1BCtKU4vm9Y1J8wY" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -22,8 +49,15 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/gilla/OneDrive - UCL/Bac 2/Q3/Test Info folder/LEPL1402/Basics/KNN",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/gilla/OneDrive - UCL/Bac 2/Q3/Informatique 2/LEPL1402/Basics/IntroductionExercises",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "discord-application",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -36,7 +70,18 @@
       <option name="presentableId" value="Default" />
       <updated>1698836254437</updated>
       <workItem from="1698836255308" duration="10000" />
+      <workItem from="1699083844285" duration="398000" />
+      <workItem from="1699084259338" duration="461000" />
+      <workItem from="1699085627738" duration="3486000" />
+      <workItem from="1699089136610" duration="3321000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
