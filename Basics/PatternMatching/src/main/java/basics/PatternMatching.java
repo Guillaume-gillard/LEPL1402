@@ -18,16 +18,19 @@ public class PatternMatching {
      **/
     public static int find(String pattern, String value) {
         int count = 0;
-        int length = value.length();
-        for (int i = 0; i <= length - 1; i++){
-            if (pattern.charAt(count) == pattern.charAt(i)){
-                count+= 1;
-            }
-            if (count == pattern.length()){
-                return i - count;
+        for (int i = 0; i < value.length(); i++){
+            if (pattern.charAt(i) == pattern.charAt(count)){
+                count += 1;
             }
             else {
                 count = 0;
+                if (pattern.charAt(i) == pattern.charAt(count)){
+                    count += 1;
+                }
+            }
+            if (count == pattern.length()){
+                System.out.println("Match at "+ (i - count));
+                return i - count;
             }
         }
         return -1;

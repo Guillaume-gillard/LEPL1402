@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb97aea5-6a37-4899-a31c-65664c6ee0c8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../ASCIIDecoder/src/main/java/basics/ASCIIDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ASCIIDecoder/src/main/java/basics/ASCIIDecoder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../KNN/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/../KNN/src/main/java/basics/KNN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatternMatching/src/main/java/basics/PatternMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/src/main/java/basics/PatternMatching.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatternMatching/target/classes/basics/PatternMatching.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/target/classes/basics/PatternMatching.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,12 +18,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Guillaume-gillard"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Guillaume-gillard&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -40,23 +40,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/gilla/OneDrive - UCL/Bac 2/Q3/Informatique 2/LEPL1402/Basics/Matrix",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "discord-application",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/gilla/OneDrive - UCL/Bac 2/Q3/Informatique 2/LEPL1402/Basics/Matrix&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;discord-application&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -70,6 +70,7 @@
       <workItem from="1699084259338" duration="461000" />
       <workItem from="1699085627738" duration="3486000" />
       <workItem from="1699089136610" duration="3634000" />
+      <workItem from="1699525525601" duration="42000" />
     </task>
     <servers />
   </component>

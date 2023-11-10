@@ -25,8 +25,13 @@ public class FourInARow {
 
      // add your own instance variables here
 
+    private static boolean[] IS_COLUMN_FULL = new boolean[7];
+
+    private char [][] GRID = char[ROWS][COLUMNS ];
+
     public FourInARow() {
-         // add your own code here
+
+
     }
 
     /**
@@ -36,9 +41,17 @@ public class FourInARow {
      * @throws IllegalArgumentException if j is not a valid column index or if the column is full or if the player is not X or O
      */
     public void play(int j, char player) {
-         if (j >= 7 || player != 'X' || player != 'O' || iscolomnfull[i] == false){
-             throw IllegalArgumentException;
+         if (j >= COLUMNS || player != 'X' || player != 'O' || !IS_COLUMN_FULL[j]){
+             throw new IllegalArgumentException();
          }
+         for (int i = 0; i < ROWS; i++){
+             if (GRID[ROWS-i-1][j] == 0){
+                 GRID[ROWS-i-1][j] = player;
+                 if (i == ROWS-1) IS_COLUMN_FULL[j] = true;
+                 return;
+             }
+         }
+
     }
 
 
@@ -49,7 +62,30 @@ public class FourInARow {
      * @throws IllegalArgumentException if the player is not X or O
      */
     public boolean hasWon(char player) {
-         // add your own code here
+        if (player != 'X' || player != ' '){
+            throw new IllegalArgumentException();
+        }
+        for (int i = 0; i < ROWS; i++){
+            for (int j = 0; j < COLUMNS; j++){
+                int countright = 0;
+                int countdown = 0;
+                int countdiag_up = 0;
+                int countdiag_down = 0;
+                if (GRID[i][j] == player){
+                    for (int k = 1; k <= 4; k++){
+                        if (GRID[i+k][j] == player) countdown ++;
+                        if (GRID[i][j+k] == player) countright ++;
+                        if (i >= 4 && j >= 4){
+                            if (GRID[i-k][j-k] == player) countdiag_down ++;
+                        }
+                        if (ROWS-i >= 4 && COLUMNS-j >= 4){
+                            if (GRID[i+k][j+k] == player) countdiag_up ++;
+                        }
+                    }
+                if (countdown == 4 || countright == 4 || countdiag_up == 4 || countdiag_down == 4) return true;
+                }
+            }
+        }
         return false;
     }
 }
