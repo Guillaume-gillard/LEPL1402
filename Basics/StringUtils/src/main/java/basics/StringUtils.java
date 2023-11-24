@@ -14,7 +14,19 @@ public class StringUtils {
      *          return an array of size 1 with the string at element 0
      */
     public static String [] split(String str, char delimiter){
-         return null;
+        String[] splitted = new String [2];
+         for (int i = 0; i < str.length()-1; i++){
+             if (str.charAt(i) == delimiter && str.charAt(i+1) == delimiter){
+                for (int j = 0; j < str.length(); j++){
+                    if (j <= i) splitted[0] += str.charAt(j);
+                    else splitted[1] += str.charAt(i);
+                }
+                return splitted;
+             }
+         }
+         String[] not_found = new String[1];
+         not_found[0] = str;
+         return not_found;
     }
 
 
@@ -28,7 +40,13 @@ public class StringUtils {
      *          in str
      */
     public static int indexOf(String str, String sub){
-         return 0;
+        int count = 0;
+        for (int i = 0; i < str.length(); i++){
+            if (str.charAt(i) == sub.charAt(count)) count++;
+            else count = 0;
+            if (count == sub.length()) return i - count + 1;
+        }
+        return -1;
     }
 
 
@@ -40,7 +58,14 @@ public class StringUtils {
      *          character put to lower case.
      */
     public static String toLowerCase(String str){
-         return null;
+        String lowercase_str = "";
+        for (int i = 0; i < str.length(); i++) {
+            char current_char = str.charAt(i);
+            // checking if uppercase or not to just convert uppercase letters
+            if (current_char >= 'A' && current_char <= 'Z') lowercase_str += (char) (current_char + 32);
+            else lowercase_str += current_char;
+        }
+        return lowercase_str;
     }
 
 
@@ -55,8 +80,9 @@ public class StringUtils {
      * @return true if str is a palyndrome, false otherwise
      */
     public static boolean palindrome(String str){
-         return false;
+         for (int i = 0; i < str.length(); i++){
+             if (str.charAt(i) != str.charAt(str.length() - i - 1)) return false;
+         }
+         return true;
     }
-
-
 }

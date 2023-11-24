@@ -37,7 +37,18 @@ public class QRcode {
         this.data = data;
     }
 
-    int len = data.length;
+    public Boolean[][] rotateMatrix(QRcode[][] matrix) {
+        int row = matrix.length;
+        int column = matrix[0].length;
+        Boolean[][] rotated_matrix = new Boolean[column][row];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                rotated_matrix[j][row - 1 - i] = matrix[i]  [j];
+            }
+        }
+        return rotated_matrix;
+    }
+
 
     /**
      * Return true if the other matrix is identical up to
@@ -45,66 +56,26 @@ public class QRcode {
      * @param o the other matrix to compare to
      * @return
      */
-
-    private boolean zero_rotationcheck (boolean [][] matrix1, boolean [][] matrix2){
-        for (int i = 0; i < len; i++){
-            for (int j = 0; j < len; j++){
-                if(matrix1[i][j] != matrix2[i][j]){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean one_rotationcheck (boolean [][] matrix1, boolean [][] matrix2){
-        for (int i = 0; i < len; i++){
-            for (int j = 0; j < len; j++){
-                if(matrix1[i][j] != matrix2[j][len-i-1]){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean two_rotationcheck (boolean [][] matrix1, boolean [][] matrix2){
-        for (int i = 0; i < len; i++){
-            for (int j = 0; j < len; j++){
-                if(matrix1[i][j] != matrix2[len-i-1][len-j-1]){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean three_rotationcheck (boolean [][] matrix1, boolean [][] matrix2){
-        for (int i = 0; i < len; i++){
-            for (int j = 0; j < len; j++){
-                if(matrix1[i][j] != matrix2[len-j-1][i]){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     @Override
     public boolean equals(Object o) {
-        boolean same = false;
-        if (zero_rotationcheck(data, o)){
-            same = true;
+        // TODO
+        // BEGIN STRIP
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        int elements = data.length * data[0].length;
+        QRcode QR_to_check = (QRcode) o;
+        boolean [][] matrix_to_check = QR_to_check.data;
+        // checking first rotation
+        for (int k = 0; k <= 4; k++) {
+            int count = 0;
+            for (int i = 0; i < data.length; i++){
+                for (int j = 0; j < data[0].length; j++){
+                    if (matrix_to_check[i][j] == data[i][j]) count++;
+                }
+            }
+            matrix_to_check = rotateMatrix(matrix_to_check);
+            if (count == elements) return true;
         }
-        if (one_rotationcheck(data, o)){
-            same = true;
-        }
-        if (two_rotationcheck(data, o)){
-            same = true;
-        }
-        if (three_rotationcheck(data, o)){
-            same = true;
-        }
-        return same;
+        return false;
     }
 }

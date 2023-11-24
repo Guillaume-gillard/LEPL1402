@@ -8,13 +8,13 @@ public class Anagram {
      * an array containing 26 elements: The item with index 0 contains
      * the number of 'A' in the string, the item with index 1 contains
      * the number of 'B', and so on.
-     *
+     * <p>
      * This function must be case-insensitive, i.e. the character 'f'
      * must be considered as the same as character 'F'.
-     *
+     * <p>
      * Characters that are neither in the range 'a' to 'z', nor in the
      * range 'A' to 'Z' must be ignored.
-     *
+     * <p>
      * The time complexity of your method must be Theta(n),
      * where n is the size of the string.
      *
@@ -25,13 +25,12 @@ public class Anagram {
     public static int[] countAlphabet(String s) {
         int [] count = new int[26];
         for (int i = 0; i < s.length(); i++){
-            char x = Character.toUpperCase(s[i]);
+            char x = Character.toUpperCase(s.charAt(i));
             if (Character.isLetter(x)){
-                count['A' - x - 1] += 1;
+                count[x - 'A'] += 1;
             }
         }
         return count;
-
     }
 
     /**
@@ -48,6 +47,6 @@ public class Anagram {
      * @return <code>true</code> iff. the two strings are anagrams.
      **/
     public static boolean isAnagram(String s1, String s2) {
-        return countAlphabet(s1) == countAlphabet(s2);
+        return countAlphabet(s1).equals(countAlphabet(s2));
     }
 }

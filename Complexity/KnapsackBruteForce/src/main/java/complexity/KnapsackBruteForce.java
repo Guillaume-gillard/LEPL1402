@@ -34,7 +34,7 @@ public class KnapsackBruteForce {
      * @return
      */
     public static int knapsack(Item[] items, int capacity) {
-         return -1;
+
     }
 
 

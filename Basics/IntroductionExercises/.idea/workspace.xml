@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb97aea5-6a37-4899-a31c-65664c6ee0c8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../ASCIIDecoder/src/main/java/basics/ASCIIDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ASCIIDecoder/src/main/java/basics/ASCIIDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../FourInARow/src/main/java/basics/FourInARow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PatternMatching/src/main/java/basics/PatternMatching.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/src/main/java/basics/PatternMatching.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PatternMatching/target/classes/basics/PatternMatching.class" beforeDir="false" afterPath="$PROJECT_DIR$/../PatternMatching/target/classes/basics/PatternMatching.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../QRcode/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../QRcode/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../QRcode/src/main/java/basics/QRcode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../QRcode/src/main/java/basics/QRcode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../StringUtils/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../StringUtils/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../StringUtils/src/main/java/basics/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../StringUtils/src/main/java/basics/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Complexity/Anagram/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Complexity/Anagram/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Complexity/Anagram/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Complexity/Anagram/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Complexity/Anagram/src/main/java/complexity/Anagram.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Complexity/Anagram/src/main/java/complexity/Anagram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Complexity/Anagram/src/test/java/complexity/AnagramTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Complexity/Anagram/src/test/java/complexity/AnagramTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Complexity/KnapsackBruteForce/src/main/java/complexity/KnapsackBruteForce.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Complexity/KnapsackBruteForce/src/main/java/complexity/KnapsackBruteForce.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +76,7 @@
       <workItem from="1699085627738" duration="3486000" />
       <workItem from="1699089136610" duration="3634000" />
       <workItem from="1699525525601" duration="42000" />
+      <workItem from="1700157539565" duration="51000" />
     </task>
     <servers />
   </component>

@@ -12,7 +12,6 @@ public class AnagramTest {
     public void testCountAlphabet1() {
         int a[] = Anagram.countAlphabet("");
         assertEquals(26, a.length);
-        
         for (int j = 0; j < 26; j++) {
             assertEquals(0, a[j]);
         }
@@ -25,7 +24,6 @@ public class AnagramTest {
             String s = new String();
             s += (char) ('A' + i);
             s += (char) ('a' + i);
-            
             int a[] = Anagram.countAlphabet(s);
             assertEquals(26, a.length);
 
