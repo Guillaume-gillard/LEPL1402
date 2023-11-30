@@ -11,7 +11,7 @@ public class CircularLinkedListTest {
     
     @Test
     @Grade(value = 1)
-    public void testSimple() {
+    public void testSimple1() {
         CircularLinkedList list = new CircularLinkedList();
         assertTrue(list.isEmpty());
 
@@ -41,6 +41,51 @@ public class CircularLinkedListTest {
             assertEquals(array[i], current.value);
             current = current.next.get();
         }            
+    }
+
+    @Test
+    @Grade(value = 1)
+    public void testSimple2() {
+        CircularLinkedList list = new CircularLinkedList();
+
+        list.enqueue(0);
+        list.enqueue(1);
+        list.enqueue(2);
+
+        assertEquals(-1,list.remove(4));
+        list.remove(1);
+
+        int[] array = new int[]{0, 2};
+        CircularLinkedList.Node current = list.first.get();
+        for (int i = 0; i < array.length; i++) {
+            assertEquals(array[i], current.value);
+            current = current.next.get();
+        }
+    }
+
+    @Test
+    @Grade(value = 1)
+    public void testSimple3() {
+        CircularLinkedList list = new CircularLinkedList();
+
+        assertEquals(-1, list.remove(0));
+
+        list.enqueue(0);
+        assertEquals(0, list.remove(0));
+
+        list.enqueue(1);
+        list.enqueue(2);
+        list.enqueue(3);
+
+        assertEquals(-1, list.remove(3));
+        list.remove(0);
+
+        int[] array = new int[]{2, 3};
+        CircularLinkedList.Node current = list.first.get();
+        for (int i = 0; i < array.length; i++) {
+            assertEquals(array[i], current.value);
+            current = current.next.get();
+        }
     }
     
 }

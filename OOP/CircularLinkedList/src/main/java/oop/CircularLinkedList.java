@@ -18,6 +18,7 @@ public class CircularLinkedList {
     public static class Node {
         public int value;
         public Optional<Node> next;
+        // constructor
         public Node(int value) {
             this.value = value;
             this.next = Optional.empty();
@@ -53,14 +54,40 @@ public class CircularLinkedList {
     public Optional<Node> getLast() {
         return this.last;
     }
-    
-    public void enqueue(int value) {
-        Node new_node = new Node(value, first);
 
-        
+    public void enqueue(int value) {
+        Node new_node = new Node(value);
+        if (isEmpty()){
+            this.first = Optional.of(new_node);
+            this.last = Optional.of(new_node);
+        }
+        else{
+            new_node.setNext(getFirst().get());
+            getLast().get().setNext(new_node);
+            this.last = Optional.of(new_node);
+        }
+        this.size ++;
     }
     
     public int remove(int index) {
-         return -1;
+        // Note : fonction non testé sur inginious et par les prof, tests 2 et 3 ajoutés pour checker remove
+        if (isEmpty() || index < 0 || index >= this.size){
+            return -1;
+        }
+        if (index == 0){
+            this.first = this.first.get().next;
+            this.size --;
+            return index;
+        }
+        int count = 0;
+        Node current = this.first.get();
+        while (count + 1 < index) {
+            current = current.next.get();
+            count++;
+        }
+        Node to_remove = current.next.get();
+        current.setNext(to_remove.next.get());
+        this.size --;
+        return index;
     }
 }
