@@ -20,7 +20,6 @@ public class CleanLinkedListTest {
 
         List expected = Arrays.asList(3,4,5,6,7,9,10);
 
-
         List answer = new ArrayList();
 
         CleanLinkedList.Node n = input.clean().first;

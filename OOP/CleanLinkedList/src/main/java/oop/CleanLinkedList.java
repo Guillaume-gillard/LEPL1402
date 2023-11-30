@@ -21,7 +21,15 @@ public class CleanLinkedList {
 
     public void add(int v) {
         // TODO
-        
+        if (first == null){
+            first = new Node(v, null);
+            last = first;
+        }
+        else{
+            last.next = new Node(v, null);
+            last = last.next;
+        }
+
     }
 
     public void add(int ... values) {
@@ -38,7 +46,21 @@ public class CleanLinkedList {
      */
     public CleanLinkedList clean() {
         // TODO
-         return null;
+        Node current = this.first;
+        while (current != null && current.next != null){
+            if (current.v == current.next.v){
+                if (current.next == this.last){
+                    current.next = null;
+                    current = this.last;
+                }
+                else{
+                    current.next = new Node(current.next.next.v, current.next.next.next);
+                    continue;
+                }
+            }
+            current = current.next;
+        }
+        return this;
     }
 
 

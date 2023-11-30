@@ -18,7 +18,6 @@ public class CircularLinkedList {
     public static class Node {
         public int value;
         public Optional<Node> next;
-
         public Node(int value) {
             this.value = value;
             this.next = Optional.empty();
@@ -56,6 +55,8 @@ public class CircularLinkedList {
     }
     
     public void enqueue(int value) {
+        Node new_node = new Node(value, first);
+
         
     }
     
