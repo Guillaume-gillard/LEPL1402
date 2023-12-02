@@ -39,9 +39,9 @@ public class GlobalWarming {
      * systems.
      */
     public interface RecordObserver {
-        public void signalNewRecord(String place,
-                                    float temperature);
+        public void signalNewRecord(String place, float temperature);
     }
+
 
     /**
      * This class represents the IPCC database. It associates the name of places on Earth with the maximum
@@ -52,6 +52,16 @@ public class GlobalWarming {
         // Hint 1: You will need to store the past records in some data structure.
         // Hint 2: You will need to store the observers in some data structure.
 
+        /**
+         * HashMap is just a Java dictionary
+         * record_database a single HashMap with the city (key) and temperature (value)
+         * observers an ArrayList that stock the cities as an RecordObserver object
+         * observers and city are not the same
+         * !! primitive type are not allowed in HashMap so for float we use the envelope class Float
+         * when creating a dic it's better to put Map instead of HashMap (its more flexible because its abstract)
+         */
+        private Map<String, Float> record_database = new HashMap<String, Float>();
+        private List<RecordObserver> observers = new ArrayList<>();
 
         /**
          * This method registers a new institution that is interested in being warned in real time of new temperature
@@ -61,6 +71,7 @@ public class GlobalWarming {
          */
         void addObserver(RecordObserver observer) {
             // TODO
+            observers.add(observer);
         }
 
         /**
@@ -73,6 +84,16 @@ public class GlobalWarming {
          */
         public void temperatureMeasured(String place, float temperature) {
             // TODO
+            // checking if its a new record (the place is not yet in the dic or the temperature is higher)
+            if (!record_database.containsKey(place) || (record_database.get(place)< temperature)) {
+                record_database.put(place, temperature);
+                for (RecordObserver observer : observers){
+                    observer.signalNewRecord(place, temperature);
+                }
+            }
+
+
+
         }
     }
 }

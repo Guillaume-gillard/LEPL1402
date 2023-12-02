@@ -41,7 +41,7 @@ public class BinarySearchTree {
 
 
     public BinarySearchTree() {
-        
+
     }
  
     public void insert(int key) {
@@ -50,7 +50,7 @@ public class BinarySearchTree {
 
     private Node put(Node x, int key) {
         if (x == null) return new Node(key);
-        if      (key < x.key) x.left  = put(x.left,  key);
+        if (key < x.key) x.left  = put(x.left,  key);
         else if (key > x.key) x.right = put(x.right, key);
         return x;
     }
@@ -62,7 +62,8 @@ public class BinarySearchTree {
      */
     public List<Integer> decreasing() {
         // TODO
-         return null;
+
+        return null;
     }
 
 

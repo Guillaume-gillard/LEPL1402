@@ -18,7 +18,7 @@ public class ASCIIDecoder {
      */
     public static String [] decode(int[] forbidden, String[][] sentences){
          String [] translated_sentence = new String[sentences.length];
-         for (int i = 0; i < sentences.length; i+++){
+         for (String word : sentences){
              for (String letter : word){
                  Boolean letter_is_forbidden = false;
                  for ( int forbidden_letter: forbidden){
