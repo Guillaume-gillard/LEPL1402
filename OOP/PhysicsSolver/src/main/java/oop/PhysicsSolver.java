@@ -18,7 +18,11 @@ public class PhysicsSolver {
          * The constructor must initialize the slot so that it
          * contains no value.
          **/
-        Slot() {
+        private double value;
+
+        Slot(){}
+        Slot(double value){
+            this.value = value;
         }
 
         /**
@@ -39,7 +43,7 @@ public class PhysicsSolver {
          * @return <code>true</code> iff. the slot contains a value.
          **/
         public boolean hasValue() {
-             return false;
+            return (this.value != null);
         }
 
         /**
