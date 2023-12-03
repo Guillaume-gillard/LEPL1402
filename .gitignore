@@ -1,5 +1,8 @@
-# Ignore IntelliJ IDEA files
-.idea/
+**/.idea/*
+**/libs/*
+**/src/
+**/target/*
+**/java/
+**/java/basics/
 
-# Ignore XML files
-*.xml
+
