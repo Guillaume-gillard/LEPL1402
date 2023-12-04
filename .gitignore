@@ -1,7 +1,7 @@
 **/.idea/*
-#**/libs/*
-#**/src/
-#!**/src/*
+**/libs/*
+**/src/
+!**/src/*
 **/target/*
 #**/java/
 #!**/java/*
