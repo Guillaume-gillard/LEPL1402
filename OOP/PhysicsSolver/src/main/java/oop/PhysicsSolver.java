@@ -249,7 +249,14 @@ public class PhysicsSolver {
 
         @Override
         public boolean update() {
-
+            if (number_.hasValue() && !square_.hasValue()){
+                square_.setValue(Math.pow(number_.getValue(), 2));
+                return true;
+            }
+            if (square_.hasValue() && !number_.hasValue()){
+                number_.setValue(Math.sqrt(square_.getValue()));
+                return true;
+            }
             return false;
         }
 
@@ -257,7 +264,7 @@ public class PhysicsSolver {
         public void clearValues() {
             number_.clearValue();
             square_.clearValue();
-            
+
         }
     }
 
