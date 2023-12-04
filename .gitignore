@@ -1,12 +1,6 @@
 **/.idea/*
 **/libs/*
-#**/src/
-#!**/src/*
 **/target/*
-#**/java/
-#!**/java/*
-#**/java/basics/
-#!**/java/basics/*
 *.xml
 
 
