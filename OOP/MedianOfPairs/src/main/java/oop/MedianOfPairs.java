@@ -1,5 +1,6 @@
 package oop;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -33,7 +34,23 @@ public class MedianOfPairs {
      */
     public static Pair median(List<Pair> list) {
         // TODO
-         return null;
+        List<Pair> stored_pair = new ArrayList<>();
+        if (list.isEmpty()) return null;
+        if (list.size() == 1) return list.get(0);
+        for (Pair pair : list){
+            if (stored_pair.isEmpty()) stored_pair.add(pair);
+            for (int i = 0; i < stored_pair.size(); i++){
+                if (pair.first < stored_pair.get(i).first){
+                    stored_pair.add(i, pair);
+                    break;
+                }
+                if (pair.first == stored_pair.get(i).first && pair.second < stored_pair.get(i).second){
+                    stored_pair.add(i, pair);
+                    break;
+                }
+            }
+        }
+        return stored_pair.get((stored_pair.size()/2)+1);
     }
 
     public static class Pair {
