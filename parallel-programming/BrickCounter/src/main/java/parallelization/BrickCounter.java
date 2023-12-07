@@ -1,5 +1,7 @@
 package parallelization;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -79,6 +81,11 @@ public class BrickCounter {
      */
     public static int[] countBricks(Brick[] bricks, int n, Function<Brick, Integer> sorter) {
         // TODO
+        int [] brick_count = new int[n];
+        for (Brick brick : bricks){
+            brick_count[sorter(brick)]++;
+
+        }
          return null;
     }
 

@@ -27,11 +27,9 @@ public class FourInARow {
 
     private static boolean[] IS_COLUMN_FULL = new boolean[7];
 
-    private char [][] GRID = char[ROWS][COLUMNS ];
+    private char [][] GRID = new char[ROWS][COLUMNS];
 
     public FourInARow() {
-
-
     }
 
     /**
@@ -41,7 +39,7 @@ public class FourInARow {
      * @throws IllegalArgumentException if j is not a valid column index or if the column is full or if the player is not X or O
      */
     public void play(int j, char player) {
-         if (j >= COLUMNS || player != 'X' || player != 'O' || !IS_COLUMN_FULL[j]){
+         if (j >= COLUMNS || (player != 'X' && player != 'O') || IS_COLUMN_FULL[j]){
              throw new IllegalArgumentException();
          }
          for (int i = 0; i < ROWS; i++){
@@ -51,7 +49,6 @@ public class FourInARow {
                  return;
              }
          }
-
     }
 
 
@@ -62,27 +59,27 @@ public class FourInARow {
      * @throws IllegalArgumentException if the player is not X or O
      */
     public boolean hasWon(char player) {
-        if (player != 'X' || player != ' '){
-            throw new IllegalArgumentException();
-        }
+        // TODO
+        if (player != 'X' && player != 'O') throw new IllegalArgumentException();
         for (int i = 0; i < ROWS; i++){
             for (int j = 0; j < COLUMNS; j++){
-                int countright = 0;
-                int countdown = 0;
-                int countdiag_up = 0;
-                int countdiag_down = 0;
                 if (GRID[i][j] == player){
-                    for (int k = 1; k <= 4; k++){
-                        if (GRID[i+k][j] == player) countdown ++;
-                        if (GRID[i][j+k] == player) countright ++;
-                        if (i >= 4 && j >= 4){
-                            if (GRID[i-k][j-k] == player) countdiag_down ++;
-                        }
-                        if (ROWS-i >= 4 && COLUMNS-j >= 4){
-                            if (GRID[i+k][j+k] == player) countdiag_up ++;
-                        }
+                    // checking right side
+                    if(j+3 < COLUMNS){
+                        if (GRID[i][j+1] == player && GRID[i][j+2] == player && GRID[i][j+3] == player) return true;
                     }
-                if (countdown == 4 || countright == 4 || countdiag_up == 4 || countdiag_down == 4) return true;
+                    // checking down side
+                    if (i+3 < ROWS){
+                        if (GRID[i+1][j] == player && GRID[i+2][j] == player && GRID[i+3][j] == player) return true;
+                    }
+                    // checking diagonal right
+                    if (i+3 < ROWS && j+3 < COLUMNS){
+                        if (GRID[i+1][j+1] == player && GRID[i+2][j+2] == player && GRID[i+3][j+3] == player) return true;
+                    }
+                    // checking diagonal left
+                    if (i-3 >= 0 && j+3 < COLUMNS){
+                        if (GRID[i-1][j+1] == player && GRID[i-2][j+2] == player && GRID[i-3][j+3] == player) return true;
+                    }
                 }
             }
         }

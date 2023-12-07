@@ -1,5 +1,6 @@
 package oop;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -101,6 +102,7 @@ public class RobotActionFactory {
         @Override
         public void apply(Robot robot) {
             // TODO Implement the body of this method
+            robot.moveForward();
         }
     }
 
@@ -112,6 +114,7 @@ public class RobotActionFactory {
         @Override
         public void apply(Robot robot) {
             // TODO Implement the body of this method
+            robot.turnLeft();
         }
     }
 
@@ -123,6 +126,7 @@ public class RobotActionFactory {
         @Override
         public void apply(Robot robot) {
             // TODO Implement the body of this method
+            robot.turnRight();
         }
     }
 
@@ -145,6 +149,7 @@ public class RobotActionFactory {
         @Override
         public void apply(Robot robot) {
             // TODO Implement the body of this method
+
         }
     }
 
@@ -191,12 +196,34 @@ public class RobotActionFactory {
      **/
     public Action parse(String commands[]) {
         SequenceOfActions sequence = new SequenceOfActions();
-
         // TODO Implement the body of this method by filling the "sequence" object
-
+        // Action is abstract so we cant type casting
+        for (int i = 0; i < commands.length(); i++){
+            String cmd = commands[i];
+            if (cmd.equals("FORWARD")){
+                sequence.add(new MoveForwardAction());
+            }
+            if (cmd.equals("TURNLEFT")){
+                sequence.add(new TurnLeftAction());
+            }
+            if (cmd.equals("TURNRIGHT")){
+                sequence.add(new TurnRightAction());
+            }
+            if (cmd.startsWith("REPEAT")){
+                int number = Integer.parseInt(cmd.split(" ")[1]);
+                int j = i;
+                List<String> cmd_to_repeat = new ArrayList<>();
+                while(!commands[j].equals("END REPEAT")){
+                    cmd_to_repeat.add(commands[j]);
+                    j++;
+                    if(j >= commands.length) {
+                        throw new IllegalArgumentException("No END REPEAT found !");
+                    }
+                }
+                for (int k = 0; k < number)
+                sequence.add(new RepeatAction(number));
+            }
+        }
         return sequence;
     }
-
-
-
 }
