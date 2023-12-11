@@ -17,23 +17,23 @@ public class ASCIIDecoder {
      * You should NEVER return null or an array containing null.
      */
     public static String [] decode(int[] forbidden, String[][] sentences){
-         String [] translated_sentence = new String[sentences.length];
-         for (String word : sentences){
-             for (String letter : word){
-                 Boolean letter_is_forbidden = false;
-                 for ( int forbidden_letter: forbidden){
-                     if (forbidden_letter == letter){
-                         letter_is_forbidden = true;
-                     }
-                 }
-                 if (letter_is_forbidden) break;
-
-             }
-
-         }
-
-
+        String [] translated_sentence = new String[sentences.length];
+        int count = 0;
+        ArrayList<Integer> forbidden_value = new ArrayList<>();
+        if (forbidden != null){
+            for (int val : forbidden) forbidden_value.add(val);
+        }
+        for (String[] word : sentences){
+            StringBuilder builder = new StringBuilder();
+            for (String letter : word){
+                if (!forbidden_value.contains(Integer.parseInt(letter))){
+                    int value = Integer.parseInt(letter);
+                    builder.appendCodePoint(value);
+                }
+            }
+            translated_sentence[count] = builder.toString();
+            count ++;
+        }
          return translated_sentence;
     }
-
 }
