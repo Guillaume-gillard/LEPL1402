@@ -2,6 +2,7 @@ package oop;
 
 import java.util.EmptyStackException;
 import java.util.Iterator;
+import java.util.Stack;
 
 /**
  * A Recursive Stack is a stack (LIFO)
@@ -18,8 +19,8 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public RecursiveStack() {
         // TODO
-        e = null;
-        next = null;
+        this.e = null;
+        this.next = null;
     }
 
     /**
@@ -44,8 +45,8 @@ public class RecursiveStack<E>  implements Iterable<E> {
      * @return the new stack
      */
     public RecursiveStack<E> add(E e) {
-		 return null;
         // TODO
+        return new RecursiveStack<>(e, this);
     }
 
     /**
@@ -56,7 +57,7 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public E top() {
         // TODO
-         return null;
+        return this.e;
     }
 
     /**
@@ -67,7 +68,9 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public RecursiveStack<E> removeTop() {
         // TODO
-         return null;
+
+        this.e = this.next.e ;
+        return this.e;
     }
 
     /**
