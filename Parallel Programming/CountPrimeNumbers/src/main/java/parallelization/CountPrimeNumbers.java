@@ -2,6 +2,7 @@ package parallelization;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -43,7 +44,7 @@ public class CountPrimeNumbers {
             return counter;
         }
     }
-    
+
 
     /**
      * Check whether the given number is prime. A prime is an integer
@@ -56,7 +57,11 @@ public class CountPrimeNumbers {
      */
     public static boolean isPrime(int number) {
         // TODO
-         return true;
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(number); i++){
+            if (number % i == 0) return false;
+        }
+        return true;
     }
 
 
@@ -68,10 +73,13 @@ public class CountPrimeNumbers {
      * @return The number of integers "x" such that x is prime, "x >=
      * start", and "x < end".
      */
-    public static int countPrimesInInterval(int start,
-                                            int end) {
+    public static int countPrimesInInterval(int start, int end) {
         // TODO
-         return 0;
+        int count = 0;
+        for (int i = start; i < end; i++){
+            if (isPrime(i)) count ++;
+        }
+        return count ;
     }
 
 
@@ -87,14 +95,15 @@ public class CountPrimeNumbers {
          * @param start Start of the interval (inclusive).
          * @param end End of the interval (exclusive).
          **/
-        CountPrimesCallable(int start,
-                            int end) {
+        CountPrimesCallable(int start, int end) {
             // TODO
+            this.start = start;
+            this.end = end;
         }
 
         public Integer call() {
             // TODO
-             return 0;
+            return countPrimesInInterval(start, end);
         }
     }
 
@@ -109,13 +118,19 @@ public class CountPrimeNumbers {
          * @param start Start of the interval (inclusive).
          * @param end End of the interval (exclusive).
          **/
-        CountPrimesRunnable(int start,
-                            int end) {
+        private int start;
+        private int end;
+        private int count;
+
+        CountPrimesRunnable(int start, int end) {
             // TODO
+            this.start = start;
+            this.end = end;
         }
 
         public void run() {
             // TODO
+            count = countPrimesInInterval(start, end);
         }
 
         /**
@@ -124,7 +139,7 @@ public class CountPrimeNumbers {
          **/
         public int getResult() {
             // TODO
-             return 0;
+            return count;
         }
     }
 
@@ -142,17 +157,21 @@ public class CountPrimeNumbers {
          * @param start Start of the interval (inclusive).
          * @param end End of the interval (exclusive).
          **/
-        CountPrimesSharedCounter(SharedCounter target,
-                                 int start,
-                                 int end) {
+        private int start;
+        private int end;
+        private SharedCounter target;
+        CountPrimesSharedCounter(SharedCounter target, int start, int end) {
             // TODO
+            this.start = start;
+            this.end = end;
+            this.target = target;
         }
 
         public void run() {
             // TODO
+            target.add(countPrimesInInterval(start, end));
         }
     }
-
 
     /**
      * Count the number of primes up to a given number "end" by using
@@ -169,7 +188,7 @@ public class CountPrimeNumbers {
      * you have to count the numbers "x" such that x is prime, and "x
      * < end").
      * @param countIntervals The number of intervals to be processed
-     * by Future. 
+     * by Future.
      * @return The number of prime numbers below "end".
      *
      * NOTES:
@@ -180,11 +199,23 @@ public class CountPrimeNumbers {
      *     method (this is already done for you in the unit tests).
      *   - You do not have to catch any exception.
      **/
-    public static int countPrimesWithCallable(ExecutorService threadPool,
-                                              int end,
-                                              int countIntervals) throws InterruptedException, ExecutionException {
+    public static int countPrimesWithCallable(ExecutorService threadPool, int end, int countIntervals) throws InterruptedException, ExecutionException {
         // TODO
-         return 0;
+        if (countIntervals <= 0) throw new IllegalArgumentException();
+        int threadSize = end / countIntervals;
+        Stack<Future<Integer>> threadStack = new Stack<>(); // Stack of Future objects containing Integer values, as Callable returns a value
+
+        // setting up the threads
+        for (int i = 0; i < countIntervals; i++){
+            int intervalStart = i * threadSize;
+            int intervalEnd = (i == countIntervals - 1) ? end : intervalStart + threadSize; // condition ? (if true) : (if false)
+            threadStack.add(threadPool.submit(new CountPrimesCallable(intervalStart, intervalEnd)));
+        }
+
+        // Running all the threads and returning the sum of all values
+        int count = 0;
+        while (!threadStack.isEmpty()) count += threadStack.pop().get();
+        return count;
     }
 
 
@@ -192,11 +223,31 @@ public class CountPrimeNumbers {
      * Method with the same specification as
      * "countPrimesWithCallable()", but using CountPrimesRunnable.
      **/
-    public static int countPrimesWithRunnable(ExecutorService threadPool,
-                                              int end,
-                                              int countIntervals) throws InterruptedException, ExecutionException {
+    public static int countPrimesWithRunnable(ExecutorService threadPool, int end, int countIntervals) throws InterruptedException, ExecutionException {
         // TODO
-         return 0;
+        if (countIntervals <= 0) throw new IllegalArgumentException();
+        Stack<Future> threadStack = new Stack<>(); // Stack of Future objects without an explicit type, as Runnable return no result
+        List<CountPrimesRunnable>  runnablesList = new ArrayList<>(); // List of runnable objects
+        int threadSize = end / countIntervals;
+
+        // Initializing the stack and the list
+        for (int i = 0; i < countIntervals; i++){
+            int intervalStart = i * threadSize;
+            int intervalEnd = (i == countIntervals - 1) ? end : intervalStart + threadSize;
+            CountPrimesRunnable runnable = new CountPrimesRunnable(intervalStart, intervalEnd);
+            runnablesList.add(runnable);
+            threadStack.add(threadPool.submit(runnable));
+        }
+
+        // Running all the threads
+        while (!threadStack.isEmpty()) threadStack.pop().get();
+
+        // Collecting all the values by summing them up
+        int count = 0;
+        for (CountPrimesRunnable runnable : runnablesList){
+            count += runnable.getResult();
+        }
+        return count;
     }
 
 
@@ -206,10 +257,21 @@ public class CountPrimeNumbers {
      * Also, the result must be stored inside the "target" shared
      * variable, instead of being returned by the method.
      **/
-    public static void countPrimesWithSharedCounter(SharedCounter target,
-                                                    ExecutorService threadPool,
-                                                    int end,
-                                                    int countIntervals) throws InterruptedException, ExecutionException {
+    public static void countPrimesWithSharedCounter(SharedCounter target, ExecutorService threadPool, int end, int countIntervals) throws InterruptedException, ExecutionException {
         // TODO
+        if (countIntervals <= 0) throw new IllegalArgumentException();
+        Stack<Future> threadStack = new Stack<>();
+        int threadSize = end / countIntervals;
+        target.set(0); // setting the shared counter to 0
+
+        // setting up the threads
+        for (int i = 0; i < countIntervals; i++){
+            int intervalStart = i * threadSize;
+            int intervalEnd = (i == countIntervals - 1) ? end : intervalStart + threadSize;
+            threadStack.add(threadPool.submit(new CountPrimesSharedCounter(target, intervalStart, intervalEnd)));
+        }
+
+        // running all the threads
+        while (!threadStack.isEmpty()) threadStack.pop().get();
     }
 }
