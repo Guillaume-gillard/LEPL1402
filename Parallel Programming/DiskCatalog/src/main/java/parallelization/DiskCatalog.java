@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
  * collection of albums.
  **/
 public class DiskCatalog {
-    
+
     /**
      * Interface representing one disk in the catalog.
      **/
@@ -79,15 +79,9 @@ public class DiskCatalog {
          * each iteration over the collection. In the example above
          * with 3 callables, "skip" should be equal to 2.
          **/
-        CountMatchingDisksCallable(Iterator<Disk> iterator,
-                                   Optional<String> bandName,
-                                   Optional<String> diskTitle,
-                                   Optional<Integer> year,
-                                   int skip) {
-            if (skip < 0) {
-                throw new IllegalArgumentException();
-            }
-        
+        CountMatchingDisksCallable(Iterator<Disk> iterator, Optional<String> bandName, Optional<String> diskTitle, Optional<Integer> year, int skip) {
+            if (skip < 0) throw new IllegalArgumentException();
+
             this.iterator = iterator;
             this.bandName = bandName;
             this.diskTitle = diskTitle;
@@ -97,7 +91,15 @@ public class DiskCatalog {
 
         public Integer call() {
             // TODO
-             return -1;
+            int count = 0;
+            while (iterator.hasNext()){
+                Disk disk = iterator.next();
+                if ((!bandName.isPresent() || bandName.get().equals(disk.getBandName())) && (!diskTitle.isPresent() || diskTitle.get().equals(disk.getDiskTitle())) && (!year.isPresent() || year.get().equals(disk.getYear()))){
+                    count ++;
+                }
+                for (int i = 0; i < skip && iterator.hasNext(); i++) iterator.next();
+            }
+            return count;
         }
     }
 
@@ -107,7 +109,7 @@ public class DiskCatalog {
      * (provided as a Java Iterable) that match some criteria, using
      * multithreading. Check out the constructor of
      * "CountMatchingDisksCallable" for a description of the criteria.
-     * 
+     *
      * You must use the thread pool that is provided in the argument
      * "threadPool", and you must create a number of callables that is
      * equal to argument "countCallables".
@@ -121,13 +123,17 @@ public class DiskCatalog {
      *   - You do not have to catch any exception.
      *   - You must throw IllegalArgumentException if countCallables <= 0.
      **/
-    public static int countMatchingDisks(Iterable<Disk> disks,
-                                         Optional<String> bandName,
-                                         Optional<String> diskTitle,
-                                         Optional<Integer> year,
-                                         ExecutorService threadPool,
-                                         int countCallables) throws InterruptedException, ExecutionException {
+    public static int countMatchingDisks(Iterable<Disk> disks, Optional<String> bandName, Optional<String> diskTitle, Optional<Integer> year, ExecutorService threadPool, int countCallables) throws InterruptedException, ExecutionException {
         // TODO
-         return -1;
+        if (countCallables <= 0) throw new IllegalArgumentException();
+        Stack<Future<Integer>> threadStack = new Stack<>();
+        for (int i = 0; i < countCallables; i++){
+            Iterator<Disk> diskIterator = disks.iterator(); // we need to create a new iterator each time because the Callable modify the iterator
+            for (int j = 0; j < i; j++) if (diskIterator.hasNext()) diskIterator.next();
+            threadStack.add(threadPool.submit(new CountMatchingDisksCallable(diskIterator, bandName, diskTitle, year, countCallables - 1)));
+        }
+        int count = 0;
+        while (!threadStack.isEmpty()) count += threadStack.pop().get();
+        return count;
     }
 }
