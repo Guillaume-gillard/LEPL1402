@@ -20,13 +20,11 @@ package oop;
  *  - (C)' = 0 with C a constant
  */
 public abstract class Expression {
-
     /**
      * Creates the basic variable expression 'x'
      * @return the expression 'x'
      */
     public static Expression x() {
-         return null;
     }
 
     /**
@@ -34,7 +32,7 @@ public abstract class Expression {
      * @return the expression 'v'
      */
     public static Expression value(double v) {
-         return null;
+
     }
 
     /**
@@ -43,7 +41,6 @@ public abstract class Expression {
      * @return the binary expression 'this + r'
      */
     public Expression plus(Expression r) {
-         return null;
     }
 
     /**
