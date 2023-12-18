@@ -1,5 +1,8 @@
 package basics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringUtils {
 
 
@@ -14,19 +17,31 @@ public class StringUtils {
      *          return an array of size 1 with the string at element 0
      */
     public static String [] split(String str, char delimiter){
-        String[] splitted = new String [2];
-         for (int i = 0; i < str.length()-1; i++){
-             if (str.charAt(i) == delimiter && str.charAt(i+1) == delimiter){
-                for (int j = 0; j < str.length(); j++){
-                    if (j <= i) splitted[0] += str.charAt(j);
-                    else splitted[1] += str.charAt(i);
+        //counting the number of splitted part
+        int length = 1;
+        for (int i = 0; i < str.length(); i++){
+            if (str.charAt(i) == delimiter) length ++;
+        }
+        String [] splitted = new String[length];
+
+        boolean isSplitted = false;
+        int startInterval = 0;
+        int count = 0;
+        for (int i = 0; i < str.length(); i ++){
+            if (str.charAt(i) == delimiter){
+                if (i + 1 == str.length()) {
+                    splitted[count] = str.substring(startInterval, i);
+                    splitted[count+1] = "";
+                    return splitted;
                 }
-                return splitted;
-             }
-         }
-         String[] not_found = new String[1];
-         not_found[0] = str;
-         return not_found;
+                splitted[count] = str.substring(startInterval, i);
+                startInterval = i+1;
+                count ++;
+                isSplitted = true;
+            }
+        }
+        if (isSplitted) return splitted;
+        return new String[]{str};
     }
 
 

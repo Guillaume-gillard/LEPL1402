@@ -133,12 +133,7 @@ public class KNN {
      */
     public static boolean predictSuccess(Student [] students, double[] grades, int k) {
         // TODO
-        for (Student student : students){
-            grade = student.grades;
-            succes = student.success;
 
-
-        }
         return false;
     }
 

@@ -198,7 +198,7 @@ public class RobotActionFactory {
         SequenceOfActions sequence = new SequenceOfActions();
         // TODO Implement the body of this method by filling the "sequence" object
         // Action is abstract so we cant type casting
-        for (int i = 0; i < commands.length(); i++){
+        for (int i = 0; i < commands.length; i++){
             String cmd = commands[i];
             if (cmd.equals("FORWARD")){
                 sequence.add(new MoveForwardAction());
@@ -220,8 +220,9 @@ public class RobotActionFactory {
                         throw new IllegalArgumentException("No END REPEAT found !");
                     }
                 }
-                for (int k = 0; k < number)
-                sequence.add(new RepeatAction(number));
+                for (int k = 0; k < number; k++) {
+                    sequence.add(new RepeatAction(Integer.parseInt(number)));
+                }
             }
         }
         return sequence;
