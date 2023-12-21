@@ -17,31 +17,23 @@ public class StringUtils {
      *          return an array of size 1 with the string at element 0
      */
     public static String [] split(String str, char delimiter){
-        //counting the number of splitted part
         int length = 1;
         for (int i = 0; i < str.length(); i++){
             if (str.charAt(i) == delimiter) length ++;
         }
         String [] splitted = new String[length];
-
-        boolean isSplitted = false;
-        int startInterval = 0;
-        int count = 0;
-        for (int i = 0; i < str.length(); i ++){
+        int index = 0;
+        String subString = "";
+        for (int i = 0; i < str.length(); i++){
             if (str.charAt(i) == delimiter){
-                if (i + 1 == str.length()) {
-                    splitted[count] = str.substring(startInterval, i);
-                    splitted[count+1] = "";
-                    return splitted;
-                }
-                splitted[count] = str.substring(startInterval, i);
-                startInterval = i+1;
-                count ++;
-                isSplitted = true;
+                splitted[index] = subString;
+                subString = "";
+                index++;
             }
+            else subString += str.charAt(i);
         }
-        if (isSplitted) return splitted;
-        return new String[]{str};
+        splitted[index] = subString;
+        return splitted;
     }
 
 
