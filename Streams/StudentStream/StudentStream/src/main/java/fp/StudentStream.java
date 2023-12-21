@@ -23,7 +23,8 @@ public class StudentStream {
         private String course;
         private double value;
 
-        public Grade(String course, double value) {
+        public Grade(String course,
+                     double value) {
             this.course = course;
             this.value = value;
         }
@@ -53,7 +54,9 @@ public class StudentStream {
         private int section;
         private Map<String, Double> grades = new HashMap<>();
 
-        public Student(String firstName, String lastName, int section) {
+        public Student(String firstName,
+                       String lastName,
+                       int section) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.section = section;
@@ -83,7 +86,8 @@ public class StudentStream {
         /**
          * Record the grade of the student for a course.
          **/
-        public void addGrade(String course, double grade) {
+        public void addGrade(String course,
+                             double grade) {
             if (hasGrade(course)) {
                 throw new IllegalArgumentException("Student has already a grade for course: " + course);
             } else {

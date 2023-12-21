@@ -47,6 +47,11 @@ public class Anagram {
      * @return <code>true</code> iff. the two strings are anagrams.
      **/
     public static boolean isAnagram(String s1, String s2) {
-        return countAlphabet(s1).equals(countAlphabet(s2));
+        int[] count1 = countAlphabet(s1);
+        int[] count2 = countAlphabet(s2);
+        for (int i = 0; i < count1.length; i++){
+            if (count1[i] != count2[i]) return false;
+        }
+        return true;
     }
 }
