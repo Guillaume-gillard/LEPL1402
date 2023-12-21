@@ -1,7 +1,5 @@
 package basics;
 
-import java.util.Arrays;
-
 /**
  * Make sure that the equal method consider
  * two QR codes as identical if they have been flipped
@@ -37,17 +35,33 @@ public class QRcode {
         this.data = data;
     }
 
-    public Boolean[][] rotateMatrix(QRcode[][] matrix) {
+    private boolean CheckRow (boolean[] row1, boolean[] row2){
+        for (int i = 0; i < row1.length; i++){
+            if (row1[i] != row2[i]) return false;
+        }
+        return true;
+    }
+
+    private boolean CheckMatrix(boolean[][] matrix1, boolean[][] matrix2){
+        for (int i = 0; i < matrix1.length; i++){
+            if (!CheckRow(matrix1[i], matrix2[i])) return false;
+        }
+        return true;
+    }
+
+    private boolean[][] RotateMatrix (boolean[][] matrix){
         int row = matrix.length;
         int column = matrix[0].length;
-        Boolean[][] rotated_matrix = new Boolean[column][row];
+        boolean[][] rotatedMatrix = new boolean[row][column];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
-                rotated_matrix[j][row - 1 - i] = matrix[i]  [j];
+                rotatedMatrix[j][row - 1 - i] = matrix[i]  [j];
             }
         }
-        return rotated_matrix;
+        return rotatedMatrix;
     }
+
+
 
 
     /**
@@ -61,20 +75,11 @@ public class QRcode {
         // TODO
         // BEGIN STRIP
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        int elements = data.length * data[0].length;
-        QRcode QR_to_check = (QRcode) o;
-        boolean [][] matrix_to_check = QR_to_check.data;
-        // checking first rotation
-        for (int k = 0; k <= 4; k++) {
-            int count = 0;
-            for (int i = 0; i < data.length; i++){
-                for (int j = 0; j < data[0].length; j++){
-                    if (matrix_to_check[i][j] == data[i][j]) count++;
-                }
-            }
-            matrix_to_check = rotateMatrix(matrix_to_check);
-            if (count == elements) return true;
+        QRcode qRcode = (QRcode) o;
+        boolean[][] matrix = qRcode.data;
+        for (int i = 0; i <= 3; i++){
+            if (CheckMatrix(this.data, matrix)) return true;
+            matrix = RotateMatrix(matrix);
         }
         return false;
     }
