@@ -11,7 +11,8 @@ public class LambdaExpressions {
      */
     public static Object sumOfIntegers() {
         // TODO
-         return null;
+        BinaryOperator<Integer> f = (x, y) -> x + y;
+        return f;
     }
 
     /**
@@ -19,7 +20,8 @@ public class LambdaExpressions {
      */
     public static Object isEmptyString() {
         // TODO
-         return null;
+        Predicate<String> f = s -> s.isEmpty();
+        return f;
     }
 
     /**
@@ -27,7 +29,8 @@ public class LambdaExpressions {
      */
     public static Object isOddNumber() {
         // TODO
-         return null;
+        Predicate<Integer> f = x -> x%2 == 1;
+        return f;
     }
 
     /**
@@ -36,7 +39,13 @@ public class LambdaExpressions {
      */
     public static Object computeMeanOfListOfDoubles() {
         // TODO
-         return null;
+        Function<List<Double>, Double> f = list -> {
+            if (list.isEmpty()) throw new IllegalArgumentException();
+            double sum = 0;
+            for (double x : list) sum += x;
+            return sum/list.size();
+        };
+        return f;
     }
 
     /**
@@ -44,6 +53,7 @@ public class LambdaExpressions {
      */
     public static void removeEvenNumbers(List<Integer> lst) {
         // TODO
+        lst.removeIf(x -> x%2 == 0);
     }
 
     /**
@@ -53,7 +63,13 @@ public class LambdaExpressions {
      */
     public static Object computeFactorial() {
         // TODO
-         return null;
+        UnaryOperator<Integer> f = x -> {
+            if (x < 0) throw new IllegalArgumentException();
+            int factorial = 1;
+            for (int i = 1; i <= x; i++) factorial *= i;
+            return factorial;
+        };
+        return f;
     }
 
     /**
@@ -61,7 +77,13 @@ public class LambdaExpressions {
      */
     public static Object listOfStringsToLowerCase() {
         // TODO
-         return null;
+        UnaryOperator<List<String>> f = list -> {
+            for (int i = 0; i < list.size(); i++){
+                list.set(i, list.get(i).toLowerCase());
+            }
+            return list;
+        };
+        return f;
     }
 
     /**
@@ -69,7 +91,8 @@ public class LambdaExpressions {
      */
     public static Object concatenateStrings() {
         // TODO
-         return null;
+        BinaryOperator<String> f = (a, b) -> a + b;
+        return f;
     }
 
     public static class MinMaxResult {
@@ -97,7 +120,16 @@ public class LambdaExpressions {
      */
     public static Function<List<Integer>, Optional<MinMaxResult>> computeMinMax() {
         // TODO
-         return null;
+        return list -> {
+            if (list.isEmpty()) return Optional.empty();
+            int minValue = list.get(0);
+            int maxValue = list.get(0);
+            for (int x : list){
+                minValue = Math.min(minValue, x);
+                maxValue = Math.max(maxValue, x);
+            }
+            return Optional.of(new MinMaxResult(minValue, maxValue));
+        };
     }
 
     /**
@@ -106,6 +138,13 @@ public class LambdaExpressions {
      */
     public static Object countInstancesOfLetter() {
         // TODO
-         return null;
+        BiFunction<String, Character, Integer> f = (s, c) -> {
+            int count = 0;
+            for (int i = 0; i < s.length(); i++){
+                if (s.charAt(i) == c) count ++;
+            }
+            return count;
+        };
+        return f;
     }
 }
