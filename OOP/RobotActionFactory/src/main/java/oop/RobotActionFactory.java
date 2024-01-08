@@ -210,19 +210,8 @@ public class RobotActionFactory {
                 sequence.add(new TurnRightAction());
             }
             if (cmd.startsWith("REPEAT")){
-                int number = Integer.parseInt(cmd.split(" ")[1]);
-                int j = i;
-                List<String> cmd_to_repeat = new ArrayList<>();
-                while(!commands[j].equals("END REPEAT")){
-                    cmd_to_repeat.add(commands[j]);
-                    j++;
-                    if(j >= commands.length) {
-                        throw new IllegalArgumentException("No END REPEAT found !");
-                    }
-                }
-                for (int k = 0; k < number; k++) {
-                    sequence.add(new RepeatAction(Integer.parseInt(number)));
-                }
+                int repeatTimes;
+                for (int j = )
             }
         }
         return sequence;

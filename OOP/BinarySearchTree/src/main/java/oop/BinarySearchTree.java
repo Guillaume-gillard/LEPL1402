@@ -1,5 +1,6 @@
 package oop;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,8 +63,20 @@ public class BinarySearchTree {
      */
     public List<Integer> decreasing() {
         // TODO
+        List<Integer> result = new ArrayList<>();
+        decreasingSorting(this.root, result);
+        return result;
+    }
 
-        return null;
+    private void decreasingSorting(Node start, List<Integer> sorted){
+        if (start != null){
+            // recursive call on the right subtree (greatest)
+            decreasingSorting(start.right, sorted);
+            // all the right subtree sorted, adding the current node
+            sorted.add(start.key);
+            // recursive call on the left subtree (smallest)
+            decreasingSorting(start.left, sorted);
+        }
     }
 
 

@@ -52,7 +52,11 @@ public class EmployeeFinder {
      */
     public static Employee findBestEmployee(ArrayList<Employee> employees, Function<Employee, Float> scoreFunction) {
         // TODO
-         return null;
+        int[] bestEmployee = new int[] {0, 100000}; // (id, score)
+        for (Employee employee: employees){
+            if (scoreFunction.apply(employee) < bestEmployee[1]
+        }
+
     }
 
     /**
