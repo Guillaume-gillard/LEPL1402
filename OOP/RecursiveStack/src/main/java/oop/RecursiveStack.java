@@ -57,6 +57,7 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public E top() {
         // TODO
+        if (size() == 0) throw new EmptyStackException();
         return this.e;
     }
 
@@ -68,9 +69,8 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public RecursiveStack<E> removeTop() {
         // TODO
-
-        this.e = this.next.e ;
-        return this.e;
+        if (size() == 0) throw new EmptyStackException();
+        return this.next;
     }
 
     /**
@@ -80,7 +80,7 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public int size() {
         // TODO
-         return -1;
+        return this.next == null ? 0 : this.next.size() + 1;
     }
 
     /**
@@ -91,7 +91,13 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public RecursiveStack<E> reverse() {
         // TODO
-         return null;
+        if (this.next == null) return this;
+        RecursiveStack<E> inverted = new RecursiveStack<>();
+        for (E e: this){
+            inverted = inverted.add(e);
+        }
+        return inverted;
+
     }
 
     /**
@@ -103,9 +109,23 @@ public class RecursiveStack<E>  implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         // TODO: think about implementing an inner class
-         return null;
+        return new StackIterator();
     }
 
+    private class StackIterator implements Iterator<E> {
 
+        private RecursiveStack<E> stack = RecursiveStack.this; // .this reference to the instance of the outer class
 
+        @Override
+        public boolean hasNext() {
+            return stack.next != null;
+        }
+
+        @Override
+        public E next() {
+            E e = stack.e;
+            stack = stack.next;
+            return e;
+        }
+    }
 }
