@@ -25,6 +25,7 @@ public abstract class Expression {
      * @return the expression 'x'
      */
     public static Expression x() {
+        return X.INSTANCE;
     }
 
     /**
@@ -32,7 +33,7 @@ public abstract class Expression {
      * @return the expression 'v'
      */
     public static Expression value(double v) {
-
+        return new Value(v);
     }
 
     /**
@@ -41,6 +42,7 @@ public abstract class Expression {
      * @return the binary expression 'this + r'
      */
     public Expression plus(Expression r) {
+        return new BinaryExpression('+', this, r);
     }
 
     /**
@@ -49,7 +51,7 @@ public abstract class Expression {
      * @return the binary expression 'this - r'
      */
     public Expression minus(Expression r) {
-         return null;
+        return new BinaryExpression('-',this,r);
     }
 
     /**
@@ -58,7 +60,7 @@ public abstract class Expression {
      * @return the binary expression 'this * r'
      */
     public Expression mul(Expression r) {
-         return null;
+        return new BinaryExpression('*',this,r);
     }
 
     /**
@@ -74,8 +76,82 @@ public abstract class Expression {
      */
     public abstract Expression derivate();
 
+    public static class BinaryExpression extends Expression{
+        private final char operator;
+        private final Expression left;
+        private final Expression right;
 
+        private BinaryExpression(char operator, Expression left, Expression right){
+            this.operator = operator;
+            this.left = left;
+            this.right = right;
+        }
 
+        @Override
+        public double evaluate(double xValue){
+            double leftResult = left.evaluate(xValue);
+            double rightResult = right.evaluate(xValue);
+            switch (this.operator){
+                case '+':
+                    return leftResult + rightResult;
+                case '-':
+                    return leftResult - rightResult;
+                case '*':
+                    return leftResult * rightResult;
+                default:
+                    throw new IllegalArgumentException("Unknown operator :" + this.operator);
+            }
+        }
 
+        @Override
+        public Expression derivate() {
+            Expression leftPrime = left.derivate();
+            Expression rightPrime = right.derivate();
+            switch (this.operator){
+                case '+':
+                    return leftPrime.plus(rightPrime);
+                case '-':
+                    return leftPrime.minus(rightPrime);
+                case '*':
+                    return leftPrime.mul(right).plus(left.mul(rightPrime));
+                default:
+                    throw new IllegalArgumentException("Unknown operator " + this.operator);
+            }
+        }
+    }
 
+    public static class Value extends Expression {
+        private final double value;
+
+        private Value (double value){
+            this.value = value;
+        }
+
+        @Override
+        public double evaluate (double xValue){
+            return this.value;
+        }
+
+        @Override
+        public Expression derivate(){
+            return value(0); // check the mother class
+        }
+    }
+
+    public static class X extends Expression {
+        private static final X INSTANCE = new X();
+
+        private X(){
+        }
+
+        @Override
+        public double evaluate(double xValue){
+            return xValue;
+        }
+
+        @Override
+        public Expression derivate(){
+            return value(1);
+        }
+    }
 }
