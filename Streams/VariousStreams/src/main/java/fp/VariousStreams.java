@@ -12,10 +12,9 @@ public class VariousStreams {
     /**
      * Count the number of strings in a stream that start with the provided character.
      */
-    static public long countStringsWithFirstLetter(Stream<String> stream,
-                                                   char firstLetter) {
+    static public long countStringsWithFirstLetter(Stream<String> stream, char firstLetter) {
         // TODO
-         return -1;
+        return stream.filter(x -> x.charAt(0) == firstLetter).count();
     }
 
 
@@ -23,10 +22,9 @@ public class VariousStreams {
      * Convert a stream of strings either to uppercase or to
      * lowercase, depending on the value of the "uppercase" argument.
      */
-    static public Stream<String> changeCase(Stream<String> stream,
-                                            boolean uppercase) {
+    static public Stream<String> changeCase(Stream<String> stream, boolean uppercase) {
         // TODO
-         return Stream.empty();
+        return stream.map(x -> (uppercase ? x.toUpperCase() : x.toLowerCase()));
     }
 
 
@@ -35,10 +33,9 @@ public class VariousStreams {
      * stream if "isEven" is "true", or the sum of all the odd numbers
      * inside the provided stream if "isEven" is "false".
      */
-    static public int getSumOfEvenOrOddNumbers(Stream<Integer> stream,
-                                               boolean isEven) {
+    static public int getSumOfEvenOrOddNumbers(Stream<Integer> stream, boolean isEven) {
         // TODO
-         return 0;
+        return stream.filter(x -> x % 2 == (isEven ? 0 : 1)).reduce(0, Integer::sum);
     }
 
 
@@ -50,7 +47,7 @@ public class VariousStreams {
      */
     static public Stream<Integer> removeDuplicates(Stream<Integer> stream) {
         // TODO
-         return Stream.empty();
+        return stream.distinct();
     }
 
 
@@ -59,10 +56,9 @@ public class VariousStreams {
      * "isAscending" is "true"), or in descending order (if
      * "isAscending" is "false").
      */
-    static public Stream<String> sortAscendingOrDescending(Stream<String> stream,
-                                                           boolean isAscending) {
+    static public Stream<String> sortAscendingOrDescending(Stream<String> stream, boolean isAscending) {
         // TODO
-         return Stream.empty();
+        return stream.sorted((x, y) -> (isAscending ? x.compareTo(y) : -x.compareTo(y)));
     }
 
 
@@ -76,7 +72,7 @@ public class VariousStreams {
      */
     static public double computeAverage(Stream<Integer> stream) {
         // TODO
-         return -1.0;
+        return stream.mapToDouble(x -> (double) x).average().orElse(0.0);
     }
 
 
@@ -113,7 +109,9 @@ public class VariousStreams {
      */
     static public Optional<MinMaxValue> computeMinMaxValue(Stream<Integer> stream) {
         // TODO
-         return Optional.empty();
+        return stream.map(x -> Optional.of(new MinMaxValue(x, x))).reduce(Optional.empty(), (a, b) -> a.isPresent() ? Optional.of(new MinMaxValue(
+                Math.min(a.get().getMinValue(), b.get().getMinValue()),
+                Math.max(a.get().getMaxValue(), b.get().getMaxValue()))) : b );
     }
 
 
@@ -125,6 +123,17 @@ public class VariousStreams {
      */
     public static Stream<Integer> generateFibonacci() {
         // TODO
-         return Stream.empty();
+        return Stream.generate(new Supplier<Integer>() {
+            private int previous = 1;
+            private int current = 1;
+
+            @Override
+            public Integer get(){
+                int backup = current;
+                current += previous;
+                previous = backup;
+                return current;
+            }
+        });
     }
 }
