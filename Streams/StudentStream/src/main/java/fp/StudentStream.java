@@ -197,8 +197,7 @@ public class StudentStream {
             this.sectionPredicate = predicate;
         }
 
-        public void addCoursePredicate(String course,
-                                       Predicate<Double> valuePredicate) {
+        public void addCoursePredicate(String course, Predicate<Double> valuePredicate) {
             courseConditions.add(new CourseCondition(course, valuePredicate));
         }
 
@@ -208,7 +207,13 @@ public class StudentStream {
          **/
         public boolean isMatch(Student student) {
             // TODO
-             return false;
+            if (firstNamePredicate != null && !firstNamePredicate.test(student.firstName)) return false;
+            if (lastNamePredicate != null && !lastNamePredicate.test(student.lastName)) return false;
+            if (sectionPredicate != null && !sectionPredicate.test(student.getSection())) return false;
+            for (CourseCondition x : courseConditions){
+                if (!student.hasGrade(x.getCourse()) || !x.getValuePredicate().test(student.getGrade(x.getCourse()))) return false;
+            }
+            return true;
         }
     }
 
@@ -226,9 +231,7 @@ public class StudentStream {
          * student, from the last name of the student, and from the
          * grade of the student.
          **/
-        public StudentAverage(String firstName,
-                              String lastName,
-                              double average) {
+        public StudentAverage(String firstName, String lastName, double average) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.average = average;
@@ -252,10 +255,9 @@ public class StudentStream {
      * Return the stream of student(s) that match the given
      * conditions, given an input stream of student(s).
      **/
-    public static Stream<Student> findAll(Stream<Student> students,
-                                          StudentConditions conditions) {
+    public static Stream<Student> findAll(Stream<Student> students, StudentConditions conditions) {
         // TODO
-         return null;
+        return students.filter(conditions::isMatch);
     }
 
 
@@ -264,10 +266,9 @@ public class StudentStream {
      * given an input stream of student(s). If there is no match,
      * return "null".
      **/
-    public static Student findFirst(Stream<Student> students,
-                                    StudentConditions conditions) {
+    public static Student findFirst(Stream<Student> students, StudentConditions conditions) {
         // TODO
-         return null;
+        return findAll(students, conditions).findFirst().orElse(null);
     }
 
 
@@ -275,11 +276,9 @@ public class StudentStream {
      * Return true if there are at least "n" students that match the
      * given conditions, given an input stream of student(s).
      **/
-    public static boolean exists(Stream<Student> students,
-                                 StudentConditions conditions,
-                                 long n) {
+    public static boolean exists(Stream<Student> students, StudentConditions conditions, long n) {
         // TODO
-         return false;
+         return findAll(students, conditions).count() >= n;
     }
 
 
@@ -288,11 +287,9 @@ public class StudentStream {
      * in an input stream of student(s), ordered according to the
      * provided comparator.
      **/
-    public static Stream<Student> filterThenSort(Stream<Student> students,
-                                                 StudentConditions conditions,
-                                                 Comparator<Student> comparator) {
+    public static Stream<Student> filterThenSort(Stream<Student> students, StudentConditions conditions, Comparator<Student> comparator) {
         // TODO
-         return null;
+        return findAll(students, conditions).sorted(comparator);
     }
 
 
@@ -303,7 +300,14 @@ public class StudentStream {
      **/
     public static Stream<Student> findSecondAndThirdTopStudentForGivenCourse(Stream<Student> students, String name) {
         // TODO
-         return null;
+        Stream<Student> studentStream = students.sorted((student1, student2) -> {
+            double grade1 = student1.getGrade(name);
+            double grade2 = student2.getGrade(name);
+            if (grade1 > grade2) return -1;
+            if (grade1 < grade2) return 1;
+            return 0;
+        });
+        return studentStream.skip(1).limit(2);
     }
 
 
@@ -313,7 +317,11 @@ public class StudentStream {
      **/
     public static Stream<StudentAverage> computeAverageForStudentInSection(Stream<Student> students, int section) {
         // TODO
-         return null;
+        return students.filter(x -> x.getSection() == section).map(student -> {
+            double average = student.getGradesStream().map(Grade::getValue).reduce(0.0, Double::sum) / (double) student.getGradesStream().count();
+            return new StudentAverage(student.getFirstName(), student.getLastName(), average);
+        });
+
     }
 
 
@@ -323,7 +331,7 @@ public class StudentStream {
      **/
     public static long getNumberOfSuccessfulStudents(Stream<Student> students) {
         // TODO
-         return 0;
+        return students.filter(student -> student.getGradesStream().allMatch(grade -> grade.getValue() > 10.0)).count();
     }
 
 
@@ -334,7 +342,11 @@ public class StudentStream {
      **/
     public static Student findLastInLexicographicOrder(Stream<Student> students) {
         // TODO
-         return null;
+        return students.sorted((a, b) -> {
+            int result = a.getLastName().compareTo(b.getLastName());
+            if (result == 0) return a.getFirstName().compareTo(b.getFirstName());
+            return result;
+        }).reduce(null, (a, b) -> b);
     }
 
 
@@ -344,6 +356,6 @@ public class StudentStream {
      **/
     public static double getFullSum(Stream<Student> students) {
         // TODO
-         return 0;
+         return students.map(student -> student.getGradesStream().map(Grade::getValue).reduce(0.0, Double::sum)).reduce(0.0, Double::sum);
     }
 }
