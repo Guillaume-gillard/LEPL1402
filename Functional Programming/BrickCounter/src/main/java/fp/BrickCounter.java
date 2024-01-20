@@ -1,8 +1,7 @@
 package fp;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
+import java.util.Arrays;
+import java.util.concurrent.*;
 import java.util.function.Function;
 
 public class BrickCounter {
@@ -79,7 +78,11 @@ public class BrickCounter {
      */
     public static int[] countBricks(Brick[] bricks, int n, Function<Brick, Integer> sorter) {
         // TODO
-         return null;
+        int[] result = new int[n];
+        for (Brick brick : bricks){
+            result[sorter.apply(brick)] ++;
+        }
+        return result;
     }
 
 
@@ -124,9 +127,24 @@ public class BrickCounter {
      *     method (this is already done for you in the unit tests).
      *   - You MUST catch all exceptions. You can return null if there is a problem.
      */
-    public static int[] countBricksTwoThreads(Brick[] bricks, int n, Function<Brick, Integer> sorter,
-                                              ExecutorService executor) {
+    public static int[] countBricksTwoThreads(Brick[] bricks, int n, Function<Brick, Integer> sorter, ExecutorService executor) {
         // TODO
-         return null;
+        int[] result = new int[n];
+        int length = bricks.length;
+        Brick[] b1 = Arrays.copyOfRange(bricks, 0, length/2);
+        Brick[] b2 = Arrays.copyOfRange(bricks, length/2, length);
+        Future<int[]> f1 = executor.submit(() -> countBricks(b1, n, sorter));
+        Future<int[]> f2 = executor.submit(() -> countBricks(b2, n, sorter));
+        try {
+            int[] b1count = f1.get();
+            int[] b2count = f2.get();
+            for (int i = 0; i < n; i++){
+                result[i] = b1count[i] + b2count[i];
+            }
+            return result;
+        }
+        catch (ExecutionException | InterruptedException e){
+            return null;
+        }
     }
 }
