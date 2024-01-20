@@ -52,11 +52,15 @@ public class EmployeeFinder {
      */
     public static Employee findBestEmployee(ArrayList<Employee> employees, Function<Employee, Float> scoreFunction) {
         // TODO
-        int[] bestEmployee = new int[] {0, 100000}; // (id, score)
+        Employee bestEmployee = null;
+        float bestScore = 0;
         for (Employee employee: employees){
-            if (scoreFunction.apply(employee) < bestEmployee[1]
+            if (scoreFunction.apply(employee) > bestScore){
+                bestScore = scoreFunction.apply(employee);
+                bestEmployee = employee;
+            }
         }
-
+        return bestEmployee;
     }
 
     /**
@@ -84,6 +88,20 @@ public class EmployeeFinder {
      */
     public static Employee findBestEmployee(Company company, Function<Employee, Float> scoreFunction) {
         // TODO
-         return null;
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        Future<Employee> f1 = executorService.submit(() -> findBestEmployee(company.departmentA, scoreFunction));
+        Future<Employee> f2 = executorService.submit(() -> findBestEmployee(company.departmentB, scoreFunction));
+        try {
+            ArrayList<Employee> result = new ArrayList<>();
+            result.add(f1.get());
+            result.add(f2.get());
+            return findBestEmployee(result, scoreFunction);
+        }
+        catch (ExecutionException | InterruptedException e){
+            throw new RuntimeException();
+        }
+        finally {
+            executorService.shutdown();
+        }
     }
 }
