@@ -21,8 +21,8 @@ public class PrimeNumberStream {
      */
     public static boolean isPrime(int number) {
         // TODO
-        if (number <= 0 || number == 1) return false;
-        for (int i = 2; i < number/2; i++){
+        if (number <= 1) return false;
+        for (int i = 2; i <= number/2; i++){
             if (number % i == 0) return false;
         }
         return true;
@@ -37,8 +37,7 @@ public class PrimeNumberStream {
     public static Stream<Integer> streamFrom(int from) {
         // TODO:
         // Hint: Consider using Stream.iterate() method
-        Stream<Integer> stream = Stream.iterate(from, x -> x++);
-        return stream;
+        return Stream.iterate(from, i -> i+1);
     }
 
 
@@ -68,7 +67,14 @@ public class PrimeNumberStream {
      */
     public static Stream<Integer> primeGapStreamFrom(int from) {
         // TODO
-        Stream<Integer> stream = primeStreamFrom(from).flatMap((a, b) -> (b - a));
-        return stream;
+        return primeStreamFrom(from).map(new UnaryOperator<Integer>() {
+            int previous;
+            @Override
+            public Integer apply(Integer operand){
+                int diff = operand - previous;
+                previous = operand;
+                return diff;
+            }
+        }).skip(1);
     }
 }
