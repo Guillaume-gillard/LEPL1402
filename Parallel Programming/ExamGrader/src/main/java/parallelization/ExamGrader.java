@@ -1,6 +1,7 @@
 package parallelization;// You can add imports
 
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -43,7 +44,16 @@ public class ExamGrader {
      *  the list of questions is not empty.
      */
     public static int calculateExamGrade(ExamQuestion questions, RoundingFunction roundingFunction) {
-         return 0;
+        // TODO
+        float gradeSum = 0;
+        int numberOfQuestions = 0;
+        ExamQuestion currentQuestion = questions;
+        while (true){
+            gradeSum += currentQuestion.pointsObtained;
+            if (currentQuestion.nextQuestion == null) break;
+            currentQuestion = currentQuestion.nextQuestion;
+        }
+        return roundingFunction.roundGrade(gradeSum);
     }
 
 
@@ -62,8 +72,15 @@ public class ExamGrader {
      */
 
     public static int[] gradeExams(ExamQuestion exam1, ExamQuestion exam2, RoundingFunction roundingFunction) {
-         return null;
+        // TODO
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        Future<Integer> corrector1 = executorService.submit(() -> calculateExamGrade(exam1, roundingFunction));
+        Future<Integer> corrector2 = executorService.submit(() -> calculateExamGrade(exam2, roundingFunction));
+        try {
+            return new int[]{corrector1.get(), corrector2.get()};
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 }
 
