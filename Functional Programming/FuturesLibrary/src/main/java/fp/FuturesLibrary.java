@@ -1,6 +1,8 @@
 package fp;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -89,12 +91,15 @@ public class FuturesLibrary {
      * @throws IllegalArgumentException If "startBookIndex" or "countBooks" is negative, or if a book whose index is
      * greater or equal to the number of books in the library would have to be accessed.
      */
-    public static int countMatchingBooks(Library library,
-                                         Predicate<Book> predicate,
-                                         int startBookIndex,
-                                         int countBooks) {
+    public static int countMatchingBooks(Library library, Predicate<Book> predicate, int startBookIndex, int countBooks) {
         // TODO
-         return 0;
+        if (startBookIndex < 0 || countBooks < 0 || startBookIndex >= library.getNumberOfBooks() || startBookIndex + countBooks > library.getNumberOfBooks()){
+            throw new IllegalArgumentException();}
+        int count = 0;
+        for (int i = startBookIndex; i < startBookIndex + countBooks; i++){
+            if (predicate.test(library.getBook(i))) count++;
+        }
+        return count;
     }
 
     /**
@@ -116,15 +121,28 @@ public class FuturesLibrary {
      * @param countThreads The number of threads to be used.
      * @return The number of books matching the predicate.
      */
-    public static int countMatchingBooksWithThreads(Library library,
-                                                    Predicate<Book> predicate,
-                                                    ExecutorService executor,
-                                                    int countThreads) {
+    public static int countMatchingBooksWithThreads(Library library, Predicate<Book> predicate, ExecutorService executor, int countThreads) {
         if (countThreads == 0) {
             throw new IllegalArgumentException();
         }
-
         // TODO
-         return 0;
+        Stack<Future<Integer>> threadStack = new Stack<>();
+        int chunkSize = library.getNumberOfBooks() / countThreads;
+        if (library.getNumberOfBooks() % countThreads != 0) chunkSize ++;
+        for (int i = 0; i < countThreads; i++){
+            final int start = i*chunkSize;
+            final int bookToCount = Math.min(chunkSize, library.getNumberOfBooks() - start);
+            threadStack.add(executor.submit(() -> countMatchingBooks(library, predicate, start, bookToCount)));
+        }
+        int result = 0;
+        while (!threadStack.isEmpty()){
+            try {
+                result += threadStack.pop().get();
+            }
+            catch (ExecutionException | InterruptedException e){
+                throw new RuntimeException();
+            }
+        }
+        return result;
     }
 }
