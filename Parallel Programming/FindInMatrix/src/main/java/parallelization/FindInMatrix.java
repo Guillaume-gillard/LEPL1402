@@ -13,12 +13,20 @@ public class FindInMatrix {
     // of the existing methods and class members.
 
     public static class Result {
-        int row;
-        List<Integer> columns;
+        private int row;
+        private List<Integer> columns;
 
-        public Result (int row){
+        Result(int row, List<Integer> columns) {
             this.row = row;
-            this.columns = new ArrayList<>();
+            this.columns = columns;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public List<Integer> getColumns() {
+            return columns;
         }
 
         public void addColumn(int column){
@@ -31,7 +39,7 @@ public class FindInMatrix {
     }
 
     public static Result findValueInRow (int[][]matrix, int row, int value){
-        Result result = new Result(row);
+        Result result = new Result(row, new ArrayList<>());
         for (int i = 0; i < matrix[0].length; i++){
             if (matrix[row][i] == value) result.addColumn(i);
         }
@@ -74,7 +82,7 @@ public class FindInMatrix {
             int finalI = i;
             threadStack.add(executorService.submit(() -> findValueInRow(matrix, finalI, value)));
         }
-        Result best = new Result(0);
+        Result best = new Result(0, new ArrayList<>());
         while (!threadStack.isEmpty()){
             try {
                 Result current = threadStack.pop().get();

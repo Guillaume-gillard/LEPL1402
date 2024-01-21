@@ -1,43 +1,46 @@
 package parallelization;
 
 
+import org.javagrader.Allow;
 import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
+import java.util.function.IntConsumer;
 
 @Grade
+@Allow("java.lang.Thread")
 public class FindInMatrixTest {
 
     private final int[][] verySmallMatrix = new int[][] {
-        { 1 }
+            { 1 }
     };
 
     private final int[][] smallMatrix = new int[][] {
-        { 1,   3,  2,  -4 },
-        { -3,  4,  5,  -2 },
-        { 3,   0,  3,   2 }
+            { 1,   3,  2,  -4 },
+            { -3,  4,  5,  -2 },
+            { 3,   0,  3,   2 }
     };
 
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testVerySmallMatrix() {
         FindInMatrix.Result result=FindInMatrix.findValue(verySmallMatrix,1, 1);
-        assertEquals(0, result.row);
-        assertArrayEquals(new Integer[]{0}, result.columns.toArray());
+        assertEquals(0, result.getRow());
+        assertArrayEquals(new Integer[]{0}, result.getColumns().toArray());
     }
 
     private void testSmallMatrix(int poolSize) {
         // the value "3" appears twice in row 2 in columns 0 and 2
         FindInMatrix.Result result=FindInMatrix.findValue(smallMatrix,3, poolSize);
-        assertEquals(2, result.row);
-        assertArrayEquals(new Integer[]{0,2}, result.columns.toArray());
+        assertEquals(2, result.getRow());
+        assertArrayEquals(new Integer[]{0,2}, result.getColumns().toArray());
 
         // the value "-4" appears once in row 0 in column 3
         FindInMatrix.Result result2=FindInMatrix.findValue(smallMatrix,-4, poolSize);
-        assertEquals(0, result2.row);
-        assertArrayEquals(new Integer[]{3}, result2.columns.toArray());
+        assertEquals(0, result2.getRow());
+        assertArrayEquals(new Integer[]{3}, result2.getColumns().toArray());
     }
 
     @Test
@@ -77,17 +80,20 @@ public class FindInMatrixTest {
         for(int row=0; row<matrixNumRows; row++) {
             // put the value 100 at random places in the row
             final int r=row;
-            rng.ints(0, matrixNumColumns).distinct().limit(row==rowWithMostOccurrences ? 11 : 10).forEach((int randomColumn)->{
-                matrix[r][randomColumn]=100;
+            rng.ints(0, matrixNumColumns).distinct().limit(row==rowWithMostOccurrences ? 11 : 10).forEach(new IntConsumer() {
+                @Override
+                public void accept(int randomColumn) {
+                    matrix[r][randomColumn] = 100;
+                }
             });
         }
 
         // test whether your solution correctly identifies the row with
         // the most number of occurrences of the value 100
         FindInMatrix.Result result=FindInMatrix.findValue(matrix,100, poolSize);
-        assertEquals(rowWithMostOccurrences, result.row);
-        assertEquals(11, result.columns.size());
-        // we are lazy and don't test the contents of result.columns here.
+        assertEquals(rowWithMostOccurrences, result.getRow());
+        assertEquals(11, result.getColumns().size());
+        // we are lazy and don't test the contents of result.getColumns() here.
     }
 
     @Test
