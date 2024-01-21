@@ -2,6 +2,7 @@ package parallelization;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,6 +15,27 @@ public class FindInMatrix {
     public static class Result {
         int row;
         List<Integer> columns;
+
+        public Result (int row){
+            this.row = row;
+            this.columns = new ArrayList<>();
+        }
+
+        public void addColumn(int column){
+            this.columns.add(column);
+        }
+
+        public int size(){
+            return this.columns.size();
+        }
+    }
+
+    public static Result findValueInRow (int[][]matrix, int row, int value){
+        Result result = new Result(row);
+        for (int i = 0; i < matrix[0].length; i++){
+            if (matrix[row][i] == value) result.addColumn(i);
+        }
+        return result;
     }
 
     /**
@@ -46,7 +68,21 @@ public class FindInMatrix {
         // TODO
         // Hint:
         // One row of the matrix -> One future.
-
-         return null;
+        ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+        Stack<Future<Result>> threadStack = new Stack<>();
+        for (int i = 0; i < matrix.length; i++){
+            int finalI = i;
+            threadStack.add(executorService.submit(() -> findValueInRow(matrix, finalI, value)));
+        }
+        Result best = new Result(0);
+        while (!threadStack.isEmpty()){
+            try {
+                Result current = threadStack.pop().get();
+                if (best.size() < current.size()) best = current;
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return best;
     }
 }
