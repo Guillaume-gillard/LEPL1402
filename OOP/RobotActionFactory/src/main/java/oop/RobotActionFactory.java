@@ -176,6 +176,9 @@ public class RobotActionFactory {
         @Override
         public void apply(Robot robot) {
             // TODO Implement the body of this method
+            for (int i = 0; i < times; i++) {
+                action.apply(robot);
+            }
         }
     }
 
@@ -198,20 +201,42 @@ public class RobotActionFactory {
         SequenceOfActions sequence = new SequenceOfActions();
         // TODO Implement the body of this method by filling the "sequence" object
         // Action is abstract so we cant type casting
-        for (int i = 0; i < commands.length; i++){
-            String cmd = commands[i];
-            if (cmd.equals("FORWARD")){
+        int i = 0;
+        while (i < commands.length){
+            if (commands[i].equals("FORWARD")) {
                 sequence.add(new MoveForwardAction());
+                i++;
             }
-            if (cmd.equals("TURNLEFT")){
+            else if (commands[i].equals("LEFT")) {
                 sequence.add(new TurnLeftAction());
+                i++;
             }
-            if (cmd.equals("TURNRIGHT")){
+            else if (commands[i].equals("RIGHT")) {
                 sequence.add(new TurnRightAction());
+                i++;
             }
-            if (cmd.startsWith("REPEAT")){
-                int repeatTimes;
-                for (int j = )
+            else if (commands[i].startsWith("REPEAT")) {
+                String[] cmd = commands[i].split(" ");
+                int times = Integer.parseInt(cmd[1]);
+
+                int depth = 1;
+                int j = i + 1;
+                while (depth > 0 && j < commands.length){
+                    if (commands[j].startsWith("REPEAT"))  depth ++;
+                    else if (commands[j].equals("END REPEAT")) depth --;
+                    j++;
+                }
+                if (depth == 0){
+                    Action action = parse(Arrays.copyOfRange(commands, i+1, j+1));
+                    sequence.add(new RepeatAction(times, action));
+                    i = j;
+                }
+                else {
+                    throw new IllegalArgumentException("Missing END REPEAT");
+                }
+            }
+            else {
+                throw new IllegalArgumentException("Unknown command :" + commands[i]);
             }
         }
         return sequence;
