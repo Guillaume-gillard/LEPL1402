@@ -2,10 +2,16 @@ package complexity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.javagrader.Allow;
+import org.javagrader.Grade;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Timeout;
 
+@Grade
+@Allow("all")
 public class KnapsackBruteForceTest {
 
     private KnapsackBruteForce knapsack;

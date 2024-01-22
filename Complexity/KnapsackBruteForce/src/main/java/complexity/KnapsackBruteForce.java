@@ -34,13 +34,20 @@ public class KnapsackBruteForce {
      * @return
      */
     public static int knapsack(Item[] items, int capacity) {
-        for (Item item : items){
-            int bestWeigth = 0;
-            bestItem;
-
-
-        }
+        //TODO
+        return knapsack(items, capacity, 0);
     }
 
-
+    public static int knapsack(Item[] items, int remainingCapacity, int currentIndex){
+        if (currentIndex == items.length || remainingCapacity <= 0) return 0;
+        // Excluding current item
+        int excludeValue = knapsack(items, remainingCapacity, currentIndex + 1);
+        // Including current item
+        int includeValue = 0;
+        int currentWeight = items[currentIndex].weight;
+        if (currentWeight <= remainingCapacity){
+            includeValue = items[currentIndex].value + knapsack(items, remainingCapacity - currentWeight, currentIndex + 1);
+        }
+        return Math.max(excludeValue, includeValue);
+    }
 }
