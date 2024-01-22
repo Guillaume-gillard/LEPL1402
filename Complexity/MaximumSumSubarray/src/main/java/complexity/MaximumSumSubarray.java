@@ -1,5 +1,8 @@
 package complexity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MaximumSumSubarray {
     
     /**
@@ -14,7 +17,6 @@ public class MaximumSumSubarray {
             this.start = start;
             this.end = end;
         }
-        
         @Override
         public boolean equals(Object other) {
             if (other instanceof ArrayIndex) {
@@ -23,7 +25,6 @@ public class MaximumSumSubarray {
             }
             return false;
         }
-        
         @Override
         public String toString() {
             return String.format("(%d, %d)", this.start, this.end);
@@ -43,6 +44,18 @@ public class MaximumSumSubarray {
      *          is a tie, the one that starts the earliest is returned)
      */
     public static ArrayIndex maximumSumSubarray(int [] array) {
-         return new ArrayIndex(-1, -1);
+        int bestSum = 0;
+        ArrayIndex bestSlice = new ArrayIndex(0, 0);
+        for (int start = 0; start < array.length; start++){
+            int sum = 0;
+            for (int end = start; end < array.length; end++){
+                sum += array[end];
+                if (bestSum < sum){
+                    bestSum = sum;
+                    bestSlice = new ArrayIndex(start, end);
+                }
+            }
+        }
+        return bestSlice;
     }
 }
