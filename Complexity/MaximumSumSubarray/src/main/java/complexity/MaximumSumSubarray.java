@@ -44,16 +44,20 @@ public class MaximumSumSubarray {
      *          is a tie, the one that starts the earliest is returned)
      */
     public static ArrayIndex maximumSumSubarray(int [] array) {
-        int bestSum = 0;
         ArrayIndex bestSlice = new ArrayIndex(0, 0);
-        for (int start = 0; start < array.length; start++){
-            int sum = 0;
-            for (int end = start; end < array.length; end++){
-                sum += array[end];
-                if (bestSum < sum){
-                    bestSum = sum;
-                    bestSlice = new ArrayIndex(start, end);
-                }
+        int bestSum = Integer.MIN_VALUE;
+        int currentSum = array[0];
+        int start = 0;
+        for (int end = 1; end < array.length; end++){
+            currentSum += array[end];
+            if (currentSum > bestSum){
+                bestSum = currentSum;
+                bestSlice.start = start;
+                bestSlice.end = end;
+            }
+            if (currentSum < 0){
+                currentSum = 0;
+                start = end + 1;
             }
         }
         return bestSlice;
