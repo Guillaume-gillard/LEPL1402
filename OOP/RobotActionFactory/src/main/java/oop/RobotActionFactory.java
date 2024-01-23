@@ -149,7 +149,9 @@ public class RobotActionFactory {
         @Override
         public void apply(Robot robot) {
             // TODO Implement the body of this method
-
+            for (Action action: actions) {
+                action.apply(robot);
+            }
         }
     }
 
@@ -227,15 +229,13 @@ public class RobotActionFactory {
                     j++;
                 }
                 if (depth == 0){
-                    Action action = parse(Arrays.copyOfRange(commands, i+1, j+1));
+                    Action action = parse(Arrays.copyOfRange(commands, i + 1, j - 1));
                     sequence.add(new RepeatAction(times, action));
                     i = j;
-                }
-                else {
+                } else {
                     throw new IllegalArgumentException("Missing END REPEAT");
                 }
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException("Unknown command :" + commands[i]);
             }
         }
